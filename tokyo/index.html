@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Me Tokyo: Explorer's Website</title>
+<meta name="description" content="A bonus website for Color Me Tokyo: hear Japanese words out loud, explore a Tokyo map, and print bonus goodies.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗼</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<a href="../index.html" class="series-back-link">← Back to the Color Me series</a>
+
+<header class="hero">
+  <div class="hero-skyline" aria-hidden="true">
+    <svg viewBox="0 0 600 100" preserveAspectRatio="none">
+      <g fill="currentColor">
+        <rect x="8" y="58" width="18" height="42"/>
+        <rect x="30" y="40" width="14" height="60"/>
+        <rect x="50" y="66" width="24" height="34"/>
+        <rect x="80" y="50" width="16" height="50"/>
+        <rect x="102" y="30" width="10" height="70"/>
+        <rect x="118" y="60" width="20" height="40"/>
+        <!-- Tokyo Tower -->
+        <path d="M196 100 Q201 76 201 58 L215 58 Q215 76 220 100 Z"/>
+        <rect x="199" y="50" width="18" height="9" rx="1"/>
+        <path d="M202 50 L204 33 L212 33 L214 50 Z"/>
+        <rect x="204" y="27" width="8" height="7" rx="1"/>
+        <path d="M206 27 L207.6 15 L208.4 15 L210 27 Z"/>
+        <rect x="207.7" y="2" width="0.8" height="14"/>
+        <rect x="240" y="64" width="16" height="36"/>
+        <rect x="260" y="44" width="12" height="56"/>
+        <rect x="276" y="70" width="30" height="30"/>
+        <rect x="312" y="52" width="14" height="48"/>
+        <!-- Skytree -->
+        <rect x="345" y="20" width="6" height="80"/>
+        <rect x="341" y="38" width="14" height="6" rx="2"/>
+        <rect x="343" y="26" width="10" height="5" rx="2"/>
+        <rect x="346.5" y="4" width="3" height="18"/>
+        <rect x="366" y="58" width="18" height="42"/>
+        <rect x="388" y="42" width="14" height="58"/>
+        <rect x="406" y="66" width="26" height="34"/>
+        <rect x="436" y="48" width="16" height="52"/>
+        <rect x="456" y="60" width="20" height="40"/>
+        <rect x="480" y="36" width="12" height="64"/>
+        <rect x="496" y="64" width="24" height="36"/>
+        <rect x="524" y="52" width="14" height="48"/>
+        <rect x="542" y="70" width="30" height="30"/>
+        <rect x="576" y="58" width="16" height="42"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <p class="eyebrow">COLOR ME · TOKYO · BONUS SITE</p>
+    <h1>Welcome back,<br>Tokyo Explorer!</h1>
+    <p class="hero-sub">You colored your way across the city, and now it's time to hear the words out loud, poke around a map of Tokyo, and print some bonus goodies.</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Section navigation">
+  <a href="#explore">Explore</a>
+  <a href="#map">Map</a>
+  <a href="#phrases">Phrases</a>
+  <a href="#eki-stamps">Eki-Stamps</a>
+  <a href="#printables">Printables</a>
+</nav>
+
+<main id="main">
+
+  <section id="explore" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Section 1</p>
+      <h2>Explore the 25 spots from your book</h2>
+      <p class="section-sub">Tap any card to flip it, and press the speaker button to hear its Japanese word said out loud.</p>
+    </div>
+    <div id="landmark-grid" class="landmark-grid"></div>
+  </section>
+
+  <section id="map" class="section section-alt">
+    <div class="section-head">
+      <p class="eyebrow">Section 2</p>
+      <h2>Find it on the map</h2>
+      <p class="section-sub">Tap a pin to jump straight to that spot above.</p>
+    </div>
+    <div class="map-wrap">
+      <div class="map-canvas" id="map-canvas">
+        <svg class="map-bg" viewBox="0 0 600 460" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <rect x="0" y="0" width="600" height="460" rx="24" fill="#eef3ef"/>
+          <path d="M488 0 L538 460 L478 460 Z" fill="#bcd6ee" opacity="0.7"/>
+          <ellipse cx="88" cy="66" rx="52" ry="30" fill="#cfe6cf"/>
+          <ellipse cx="220" cy="318" rx="55" ry="30" fill="#cfe6cf"/>
+          <ellipse cx="204" cy="166" rx="50" ry="34" fill="#cfe6cf"/>
+          <circle cx="260" cy="230" r="145" fill="none" stroke="#5FA052" stroke-width="3" stroke-dasharray="2 10" opacity="0.7"/>
+        </svg>
+        <div class="map-legend">
+          <span><i class="dot dot-loop"></i>Yamanote loop</span>
+          <span><i class="dot dot-water"></i>Water</span>
+          <span><i class="dot dot-park"></i>Park</span>
+        </div>
+        <div id="map-pins"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="phrases" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Section 3</p>
+      <h2>Say it like a local</h2>
+      <p class="section-sub">Good phrases to know on your trip through Tokyo. Press play to hear each one.</p>
+    </div>
+    <div id="phrase-list" class="phrase-list"></div>
+  </section>
+
+  <section id="eki-stamps" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Section 4</p>
+      <h2>Collect real eki-stamps</h2>
+      <p class="section-sub">Train stations all around Japan have their own stamps you can collect. Here's how the tradition works.</p>
+    </div>
+
+    <p class="stamp-intro">Eki-stamps (station stamps) are free rubber ink stamps found at almost every train station in Japan. The very first one appeared in 1931 at a station in Fukui, and collecting them took off nationwide in the 1970s, when a famous "Discover Japan" travel campaign encouraged families to explore the country by train.</p>
+
+    <div class="stamp-info-grid">
+      <div class="stamp-info-card">
+        <h3>Where to find them</h3>
+        <p><span class="rail-badge rail-badge-jr">JR</span> stations usually keep their stamp stand <strong>outside the ticket gates</strong>, so you don't even need a ticket to grab one. <span class="rail-badge rail-badge-metro">Tokyo Metro</span> and <span class="rail-badge rail-badge-toei">Toei Subway</span> stations usually keep theirs <strong>inside the gates</strong>, so you'll need to have paid your fare first.</p>
+      </div>
+      <div class="stamp-info-card">
+        <h3>How to collect them</h3>
+        <p>Stamps are free for anyone to use. Just find the stand, press it into your book or a notebook, and it's yours to keep as a souvenir.</p>
+      </div>
+    </div>
+
+    <div class="stamp-rally-callout">
+      <h3>Try a real stamp rally 🎉</h3>
+      <p>Train companies run limited-time "stamp rallies," where you visit a handful of stations to collect a themed set of stamps, often for a small prize.</p>
+
+      <div class="stamp-rally-feature">
+        <span class="stamp-rally-badge">Happening now</span>
+        <h4>Pokémon Stamp Rally</h4>
+        <p>From July 16 to August 31, 2026, <a href="https://www.jreast.co.jp/tokyo/jre_pokemonrally2026/pdf/to01.pdf" target="_blank" rel="noopener">JR East is running a giant Pokémon stamp rally</a> across 36 stations around Tokyo. Pick a 6-station course, a 9-station course, or go for all 36. Each one earns a different prize, plus a bonus medal for stopping at a shinkansen station.</p>
+      </div>
+
+      <p>Check <a href="https://www.jreast.co.jp/en/multi/" target="_blank" rel="noopener">JR East</a>'s and <a href="https://www.tokyometro.jp/en/index.html" target="_blank" rel="noopener">Tokyo Metro</a>'s official sites to see whatever's running when you visit. New rallies pop up all the time!</p>
+    </div>
+
+    <a href="#printables" class="btn btn-primary stamp-cta">Print your own stamp sheet ↓</a>
+  </section>
+
+  <section id="printables" class="section section-alt">
+    <div class="section-head">
+      <p class="eyebrow">Section 5</p>
+      <h2>Bonus printables</h2>
+      <p class="section-sub">Extra goodies that didn't fit in the book. Print them out at home!</p>
+    </div>
+
+    <div class="printables-grid">
+      <div class="printable-card">
+        <h3>Extra Eki-Stamp Sheet</h3>
+        <p>Ran out of room in the book? Print another page of blank stamp circles to keep collecting.</p>
+        <button class="btn btn-primary" id="print-stamps">Print stamp sheet</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p class="footer-brand">COLOR ME · TOKYO</p>
+  <p>A bonus companion site for <strong>Color Me Tokyo</strong> by Blue Lemon Books.<br>
+  Grab your crayons, ages 5 &amp; up.</p>
+  <p class="footer-fine">またね, Tokyo Explorer!</p>
+</footer>
+
+<!-- Printable stamp sheet (only shown when printing) -->
+<div class="print-only" id="print-stampsheet">
+  <div class="stamp-sheet">
+    <h2>More Station Stamps</h2>
+    <p>Keep collecting: press a stamp in each circle</p>
+    <div class="stamp-grid">
+      <div class="stamp-cell"><div class="stamp-circle"></div><span>Station:</span></div>
+      <div class="stamp-cell"><div class="stamp-circle"></div><span>Station:</span></div>
+      <div class="stamp-cell"><div class="stamp-circle"></div><span>Station:</span></div>
+      <div class="stamp-cell"><div class="stamp-circle"></div><span>Station:</span></div>
+      <div class="stamp-cell"><div class="stamp-circle"></div><span>Station:</span></div>
+      <div class="stamp-cell"><div class="stamp-circle"></div><span>Station:</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
