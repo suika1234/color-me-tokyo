@@ -46,16 +46,19 @@ h1, h2, h3 { font-family: var(--font-head); color: var(--navy); margin: 0; }
 
 .series-back-link {
   display: block;
+  text-align: center;
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--navy);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 0.2px;
+  color: #fff;
   text-decoration: none;
-  background: var(--cream-2);
-  border-bottom: 2px solid var(--border);
-  padding: 10px 20px;
+  background: var(--navy);
+  border-bottom: 4px solid var(--red);
+  padding: 20px 24px;
+  transition: background 0.15s ease;
 }
-.series-back-link:hover { color: var(--red); }
+.series-back-link:hover { background: var(--red); }
 
 /* ---------- Hero ---------- */
 .hero {
