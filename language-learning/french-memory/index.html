@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>French Memory Match: Blue Lemon Books</title>
+<meta name="description" content="A free French memory game for kids ages 5 and up: match pictures to French words from French Flash Cards 500, Volume 1.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍋</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="game.css">
+</head>
+<body data-screen="picker">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<a href="../index.html" class="series-back-link">← Back to Language Learning</a>
+
+<header class="home-hero game-hero">
+  <div class="home-hero-inner">
+    <p class="eyebrow">🇫🇷 Learning French</p>
+    <h1 class="wordmark">Memory <span class="wordmark-highlight">Match</span></h1>
+    <p class="home-hero-sub">Match each picture to its French word. All the words come from <em>French Flash Cards 500: Volume 1</em>.</p>
+  </div>
+</header>
+
+<main id="main" class="game-main">
+
+  <section id="picker" aria-labelledby="picker-title">
+    <h2 id="picker-title" class="screen-title">Pick a deck</h2>
+    <div id="deck-grid" class="deck-grid"></div>
+  </section>
+
+  <section id="game" aria-labelledby="game-title" hidden>
+    <div class="game-bar">
+      <h2 id="game-title" class="screen-title"></h2>
+      <div class="game-controls">
+        <span class="game-stat" aria-live="polite">Moves: <strong id="moves">0</strong></span>
+        <button type="button" id="sound-btn" class="pill-btn" aria-pressed="true">🔊 Sound on</button>
+        <button type="button" id="decks-btn" class="pill-btn">Decks</button>
+      </div>
+    </div>
+    <div id="board" class="board"></div>
+    <p id="match-note" class="match-note" aria-live="polite"></p>
+  </section>
+
+  <section id="win" class="win" aria-labelledby="win-title" hidden>
+    <h2 id="win-title" class="screen-title" tabindex="-1">Bravo&nbsp;! 🎉</h2>
+    <p id="win-summary" class="win-summary"></p>
+    <p id="win-stars" class="stars"></p>
+    <p id="win-best" class="win-best"></p>
+    <div class="win-actions">
+      <button type="button" id="again-btn" class="pill-btn pill-btn-primary">Play again</button>
+      <button type="button" id="another-btn" class="pill-btn">Pick another deck</button>
+      <a href="https://www.amazon.co.jp/dp/B0HJ59DBNV" class="pill-btn pill-btn-lemon" target="_blank" rel="noopener noreferrer">Learn all 500 words →</a>
+    </div>
+  </section>
+
+  <p id="sr-status" class="sr-only" aria-live="polite"></p>
+</main>
+
+<footer class="site-footer">
+  <p class="footer-brand">BLUE LEMON BOOKS</p>
+  <p>Flash cards and word books for curious young learners.</p>
+</footer>
+
+<script src="game.js"></script>
+</body>
+</html>
