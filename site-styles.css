@@ -163,6 +163,20 @@ h1, h2, h3 { font-family: var(--font-head); color: var(--ink); margin: 0; }
   border-radius: 14px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
+.book-cover-emoji {
+  flex-shrink: 0;
+  width: 180px;
+  height: 180px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  padding: 14px;
+  font-size: 54px;
+  line-height: 1;
+  background: var(--cream);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
 .book-card-featured .book-info-top h3 { font-size: 26px; }
 .book-card-featured .book-info p { font-size: 16px; margin-bottom: 14px; }
 .book-cta-group {
