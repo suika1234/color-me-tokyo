@@ -162,6 +162,7 @@ let cards = [];
 let open = [];
 let moves = 0;
 let pairsFound = 0;
+let streak = 0;
 let locked = false;
 
 function shuffle(list) {
@@ -270,6 +271,7 @@ function startGame(chosen) {
   deck = chosen;
   moves = 0;
   pairsFound = 0;
+  streak = 0;
   open = [];
   locked = false;
   movesEl.textContent = '0';
@@ -309,6 +311,8 @@ function flip(card) {
     }
     if (card.kind === 'picture') say(card.word.en);
     showNote(card.word);
+    streak++;
+    Effects.match([a.el, b.el], streak, soundOn);
     pairsFound++;
     if (pairsFound === deck.words.length) {
       locked = true;
@@ -316,6 +320,7 @@ function flip(card) {
     }
   } else {
     locked = true;
+    streak = 0;
     statusEl.textContent = 'Not a match. Try again.';
     for (const c of [a, b]) c.el.classList.add('is-miss');
     setTimeout(() => {
@@ -350,6 +355,7 @@ function finish() {
   $('win-best').textContent = isBest ? 'New best score!' : `Your best: ${best} moves`;
 
   showScreen('win');
+  Effects.win(soundOn);
   $('win').scrollIntoView({ block: 'start' });
   $('win-title').focus({ preventScroll: true });
 }
