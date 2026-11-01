@@ -2,7 +2,8 @@
 
 // ---------- Word data ----------
 // To add a deck, add an object here. Every word needs fr, en and card (its number in Volume 1).
-// type 'emoji' (the default) needs an emoji, 'color' needs a color, 'number' needs n.
+// The picture card shows the emoji, or a color circle (color), or a numeral with dots (n).
+// The Easy board uses the first 8 words (or `easy` if set); the Big board uses the first 12.
 const DECKS = [
   {
     id: 'food', title: 'Food', icon: '🍎',
@@ -15,6 +16,10 @@ const DECKS = [
       { fr: 'un œuf', en: 'egg', emoji: '🥚', card: 467 },
       { fr: 'un thé', en: 'tea', emoji: '🍵', card: 468 },
       { fr: "l'eau", en: 'water', emoji: '💧', card: 190 },
+      { fr: 'la viande', en: 'meat', emoji: '🥩', card: 459 },
+      { fr: 'un légume', en: 'vegetable', emoji: '🥦', card: 461 },
+      { fr: 'un fruit', en: 'fruit', emoji: '🍓', card: 462 },
+      { fr: 'le beurre', en: 'butter', emoji: '🧈', card: 466 },
     ],
   },
   {
@@ -28,6 +33,10 @@ const DECKS = [
       { fr: 'une mer', en: 'sea', emoji: '🌊', card: 329 },
       { fr: 'une montagne', en: 'mountain', emoji: '⛰️', card: 443 },
       { fr: 'une plage', en: 'beach', emoji: '🏖️', card: 442 },
+      { fr: 'un vent', en: 'wind', emoji: '🌬️', card: 477 },
+      { fr: 'une terre', en: 'earth', emoji: '🌍', card: 328 },
+      { fr: 'un jardin', en: 'garden', emoji: '🌷', card: 435 },
+      { fr: 'une campagne', en: 'countryside', emoji: '🌾', card: 444 },
     ],
   },
   {
@@ -41,6 +50,10 @@ const DECKS = [
       { fr: 'un avion', en: 'plane', emoji: '✈️', card: 490 },
       { fr: 'un vélo', en: 'bike', emoji: '🚲', card: 491 },
       { fr: 'un train', en: 'train', emoji: '🚆', card: 368 },
+      { fr: 'un bus', en: 'bus', emoji: '🚌', card: 492 },
+      { fr: 'une route', en: 'road', emoji: '🛣️', card: 331 },
+      { fr: 'une gare', en: 'train station', emoji: '🚉', card: 437 },
+      { fr: 'un feu', en: 'traffic light', emoji: '🚦', card: 330 },
     ],
   },
   {
@@ -54,10 +67,14 @@ const DECKS = [
       { fr: 'une robe', en: 'dress', emoji: '👗', card: 472 },
       { fr: 'une chaussure', en: 'shoe', emoji: '👟', card: 473 },
       { fr: 'un pantalon', en: 'pants', emoji: '👖', card: 471 },
+      { fr: 'une chemise', en: 'shirt', emoji: '👔', card: 470 },
+      { fr: 'une lampe', en: 'lamp', emoji: '💡', card: 454 },
+      { fr: 'une fenêtre', en: 'window', emoji: '🪟', card: 333 },
+      { fr: 'une assiette', en: 'plate', emoji: '🍽️', card: 450 },
     ],
   },
   {
-    id: 'colors', title: 'Colors', icon: '🎨', type: 'color',
+    id: 'colors', title: 'Colors and times', icon: '🎨', easy: 6,
     words: [
       { fr: 'blanc', en: 'white', color: '#ffffff', card: 369 },
       { fr: 'noir', en: 'black', color: '#232323', card: 370 },
@@ -65,10 +82,16 @@ const DECKS = [
       { fr: 'vert', en: 'green', color: '#34a36a', card: 372 },
       { fr: 'jaune', en: 'yellow', color: '#FFC93C', card: 493 },
       { fr: 'gris', en: 'gray', color: '#9a958c', card: 494 },
+      { fr: 'un matin', en: 'morning', emoji: '🌅', card: 189 },
+      { fr: 'un soir', en: 'evening', emoji: '🌆', card: 188 },
+      { fr: 'une nuit', en: 'night', emoji: '🌙', card: 113 },
+      { fr: 'un printemps', en: 'spring', emoji: '🌸', card: 484 },
+      { fr: 'un été', en: 'summer', emoji: '🌻', card: 355 },
+      { fr: 'un hiver', en: 'winter', emoji: '⛄', card: 356 },
     ],
   },
   {
-    id: 'numbers', title: 'Numbers 1 to 8', icon: '🔢', type: 'number',
+    id: 'numbers', title: 'Numbers', icon: '🔢',
     words: [
       { fr: 'un', en: 'one', n: 1, card: 3 },
       { fr: 'deux', en: 'two', n: 2, card: 82 },
@@ -78,6 +101,10 @@ const DECKS = [
       { fr: 'six', en: 'six', n: 6, card: 295 },
       { fr: 'sept', en: 'seven', n: 7, card: 296 },
       { fr: 'huit', en: 'eight', n: 8, card: 297 },
+      { fr: 'neuf', en: 'nine', n: 9, card: 298 },
+      { fr: 'dix', en: 'ten', n: 10, card: 299 },
+      { fr: 'cent', en: 'hundred', emoji: '💯', card: 300 },
+      { fr: 'premier', en: 'first', emoji: '🥇', card: 156 },
     ],
   },
 ];
@@ -87,6 +114,11 @@ const FLIP_BACK_MS = 1000;
 const THREE_STARS_MAX = 2.25;
 const TWO_STARS_MAX = 3.5;
 const OUTLINED_COLORS = ['white', 'black'];
+// Easy is today's 4×4 board; Big is 5×5 with 12 pairs and a free lemon in the center.
+const SIZES = {
+  easy: { label: 'Easy 4×4', cols: 4 },
+  big: { label: 'Big 5×5', cols: 5, pairs: 12 },
+};
 const STORAGE_PREFIX = 'blb-french-memory:';
 
 // ---------- Storage (optional: the game works without it) ----------
@@ -96,9 +128,15 @@ function readStore(key) {
 function writeStore(key, value) {
   try { localStorage.setItem(STORAGE_PREFIX + key, String(value)); } catch (e) { /* storage blocked */ }
 }
-function readBest(deckId) {
-  const best = parseInt(readStore('best:' + deckId), 10);
+function bestKey(d, sizeName) {
+  return 'best:' + d.id + (sizeName === 'big' ? ':big' : '');
+}
+function readBest(d, sizeName) {
+  const best = parseInt(readStore(bestKey(d, sizeName)), 10);
   return Number.isFinite(best) ? best : null;
+}
+function pairsFor(d, sizeName) {
+  return sizeName === 'big' ? SIZES.big.pairs : (d.easy || 8);
 }
 
 // ---------- Speech ----------
@@ -142,6 +180,8 @@ let cards = [];
 let open = [];
 let moves = 0;
 let pairsFound = 0;
+let pairsInPlay = 0;
+let size = readStore('size') === 'big' ? 'big' : 'easy';
 let streak = 0;
 let locked = false;
 
@@ -167,15 +207,29 @@ function showScreen(name) {
 
 // ---------- Deck picker ----------
 function renderPicker() {
+  const toggle = $('size-toggle');
+  toggle.replaceChildren(...Object.entries(SIZES).map(([name, opt]) => {
+    const btn = el('button', 'pill-btn size-btn', opt.label);
+    btn.type = 'button';
+    btn.setAttribute('aria-pressed', String(name === size));
+    btn.addEventListener('click', () => {
+      size = name;
+      writeStore('size', name);
+      renderPicker();
+      toggle.querySelector('[aria-pressed="true"]').focus();
+    });
+    return btn;
+  }));
+
   const grid = $('deck-grid');
   grid.replaceChildren(...DECKS.map(d => {
     const btn = el('button', 'deck-btn');
     btn.type = 'button';
-    const best = readBest(d.id);
+    const best = readBest(d, size);
     btn.append(
       el('span', 'deck-icon', d.icon),
       el('span', 'deck-title', d.title),
-      el('span', 'deck-meta', d.words.length + ' pairs'),
+      el('span', 'deck-meta', pairsFor(d, size) + ' pairs'),
       el('span', 'deck-meta', best === null ? 'Not played yet' : 'Best: ' + best + ' moves'),
     );
     btn.querySelector('.deck-icon').setAttribute('aria-hidden', 'true');
@@ -193,8 +247,8 @@ function openPicker() {
 
 // ---------- Cards ----------
 function pictureLabel(word) {
-  if (deck.type === 'color') return 'Color: ' + word.en;
-  if (deck.type === 'number') return 'Number ' + word.n;
+  if (word.color) return 'Color: ' + word.en;
+  if (word.n) return 'Number ' + word.n;
   return 'Picture: ' + word.en;
 }
 
@@ -214,16 +268,17 @@ function buildFront(card) {
     text.lang = 'fr';
     // Shrink long words (e.g. "chaussure") so they fit on one line.
     const longest = Math.max(...word.fr.split(/[\s']/).map(part => part.length));
-    text.style.setProperty('--word-size', Math.min(5.5, 34 / longest).toFixed(2) + 'cqw');
+    text.style.setProperty('--word-size', (Math.min(5.5, 34 / longest) * 4 / SIZES[size].cols).toFixed(2) + 'cqw');
     front.append(text);
-  } else if (deck.type === 'color') {
+  } else if (word.color) {
     const swatch = el('span', 'swatch');
     swatch.style.setProperty('--swatch', word.color);
     if (OUTLINED_COLORS.includes(word.en)) swatch.classList.add('swatch-outlined');
     front.append(swatch);
-  } else if (deck.type === 'number') {
+  } else if (word.n) {
     const dots = el('span', 'dots');
     for (let i = 0; i < word.n; i++) dots.append(el('span', 'dot'));
+    if (word.n > 8) dots.classList.add('dots-wide'); // two rows of five
     front.append(el('span', 'numeral', String(word.n)), dots);
   } else {
     front.append(el('span', 'card-emoji', word.emoji));
@@ -256,13 +311,22 @@ function startGame(chosen) {
   open = [];
   locked = false;
   movesEl.textContent = '0';
-  $('game-title').textContent = deck.title;
+  pairsInPlay = pairsFor(deck, size);
+  $('game-title').textContent = deck.title + (size === 'big' ? ' · Big' : '');
   noteEl.textContent = 'Tap two cards to match a picture with its French word.';
-  cards = shuffle(deck.words.flatMap((word, pair) => [
+  cards = shuffle(deck.words.slice(0, pairsInPlay).flatMap((word, pair) => [
     { pair, kind: 'picture', word, up: false, matched: false },
     { pair, kind: 'word', word, up: false, matched: false },
   ]));
-  board.replaceChildren(...cards.map((card, i) => buildCard(card, i, cards.length)));
+  const tiles = cards.map((card, i) => buildCard(card, i, cards.length));
+  if (size === 'big') {
+    const free = el('span', 'free-tile', '🍋');
+    free.setAttribute('role', 'img');
+    free.setAttribute('aria-label', 'Free lemon tile');
+    tiles.splice(Math.floor(tiles.length / 2), 0, free);
+  }
+  board.style.setProperty('--cols', SIZES[size].cols);
+  board.replaceChildren(...tiles);
   showScreen('game');
   sizeBoard(true);
   board.firstElementChild.focus({ preventScroll: true });
@@ -295,7 +359,7 @@ function flip(card) {
     streak++;
     Effects.match([a.el, b.el], streak, soundOn);
     pairsFound++;
-    if (pairsFound === deck.words.length) {
+    if (pairsFound === pairsInPlay) {
       locked = true;
       setTimeout(finish, 1100);
     }
@@ -322,11 +386,11 @@ function showNote(word) {
 }
 
 function finish() {
-  const pairs = deck.words.length;
+  const pairs = pairsInPlay;
   const stars = moves <= pairs * THREE_STARS_MAX ? 3 : moves <= pairs * TWO_STARS_MAX ? 2 : 1;
-  const best = readBest(deck.id);
+  const best = readBest(deck, size);
   const isBest = best === null || moves < best;
-  if (isBest) writeStore('best:' + deck.id, moves);
+  if (isBest) writeStore(bestKey(deck, size), moves);
 
   $('win-summary').textContent = `You matched all ${pairs} pairs in ${deck.title} in ${moves} moves.`;
   const starsEl = $('win-stars');
@@ -342,7 +406,7 @@ function finish() {
 }
 
 // ---------- Fit the board on one screen ----------
-// Card width w, gap g: board height = rows*w + (rows-1)*g, board width = 4*w + 3*g.
+// Card width w, gap g: board height = rows*w + (rows-1)*g, board width = cols*w + (cols-1)*g.
 // Keep the header in view if the board can still be a good size; otherwise scroll it away.
 // The choice is made once per game so phone toolbars showing/hiding don't make the board jump.
 let keepHeader = true;
@@ -350,13 +414,14 @@ let keepHeader = true;
 function sizeBoard(newGame) {
   if (screens.game.hidden) return;
   board.style.width = '';
-  const rows = Math.ceil(cards.length / 4);
+  const cols = SIZES[size].cols;
+  const rows = Math.ceil(board.children.length / cols);
   const gap = parseFloat(getComputedStyle(board).columnGap) || 0;
   const fullWidth = Math.min(board.parentElement.clientWidth, 640);
   const below = noteEl.offsetHeight + 12 + 16;
   const widthFor = height => {
     const cardSize = (height - below - (rows - 1) * gap) / rows;
-    return Math.max(200, Math.min(fullWidth, Math.floor(4 * cardSize + 3 * gap)));
+    return Math.max(200, Math.min(fullWidth, Math.floor(cols * cardSize + (cols - 1) * gap)));
   };
 
   const boardTop = board.getBoundingClientRect().top + window.scrollY;
