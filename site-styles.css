@@ -91,6 +91,39 @@ h1, h2, h3 { font-family: var(--font-head); color: var(--ink); margin: 0; }
   color: var(--muted);
 }
 
+.hero-promo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  margin-top: 22px;
+  padding: 8px 18px 8px 8px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.25;
+  color: var(--blue-dark);
+  background: var(--yellow);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 #e8b52c;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.hero-promo:hover { transform: translateY(-2px); box-shadow: 0 5px 0 #e8b52c; }
+@media (max-width: 440px) {
+  .hero-promo-extra { display: none; }
+}
+.hero-promo-new {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--blue);
+  border-radius: 999px;
+}
+
 @keyframes fade-up {
   0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -177,6 +210,8 @@ h1, h2, h3 { font-family: var(--font-head); color: var(--ink); margin: 0; }
   border-radius: 14px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
+.book-cover-emoji-games { background: var(--blue); }
+.section-games { padding-top: 0; }
 .book-card-featured .book-info-top h3 { font-size: 26px; }
 .book-card-featured .book-info p { font-size: 16px; margin-bottom: 14px; }
 .book-cta-group {
