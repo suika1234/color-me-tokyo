@@ -1,5 +1,8 @@
 /* English Memory Match. Builds on ../styles.css (colors, fonts, header, footer). */
 
+/* Fast taps (e.g. on the gaps between cards) must not trigger Safari's double-tap zoom. Pinch zoom still works. */
+html { touch-action: manipulation; }
+
 .sr-only {
   position: absolute;
   width: 1px;

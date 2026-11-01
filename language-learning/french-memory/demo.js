@@ -8,9 +8,13 @@
 
   const style = document.createElement('style');
   style.textContent = `
-    .demo-pointer {
-      position: fixed; left: 0; top: 0; z-index: 2147483647;
+    .demo-layer {
+      position: fixed; inset: 0; z-index: 2147483647;
+      overflow: hidden; /* near the screen edge the arrow is cut off instead of widening the page */
       pointer-events: none;
+    }
+    .demo-pointer {
+      position: absolute; left: 0; top: 0;
       transition: transform 0.3s cubic-bezier(0.3, 0.7, 0.3, 1);
     }
     .demo-pointer.is-dragging { transition: none; }
@@ -28,7 +32,10 @@
       <path d="M3 3 V39 L12 30.5 L18.5 45 L25 42 L18.5 28 H30.5 Z"
             fill="#111" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/>
     </svg>`;
-  document.body.append(pointer);
+  const layer = document.createElement('div');
+  layer.className = 'demo-layer';
+  layer.append(pointer);
+  document.body.append(layer);
 
   let clickTimer = null;
   const moveTo = (x, y) => { pointer.style.transform = `translate(${x - TIP}px, ${y - TIP}px)`; };
