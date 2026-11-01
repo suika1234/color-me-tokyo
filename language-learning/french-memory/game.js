@@ -120,6 +120,8 @@ const SIZES = {
   big: { label: 'Big 5×5', cols: 5, pairs: 12 },
 };
 const STORAGE_PREFIX = 'blb-french-memory:';
+// Demo mode (?demo=1, see demo.js) is for recording videos: it never shows or saves best scores.
+const DEMO = new URLSearchParams(location.search).get('demo') === '1';
 
 // ---------- Storage (optional: the game works without it) ----------
 function readStore(key) {
@@ -230,7 +232,7 @@ function renderPicker() {
       el('span', 'deck-icon', d.icon),
       el('span', 'deck-title', d.title),
       el('span', 'deck-meta', pairsFor(d, size) + ' pairs'),
-      el('span', 'deck-meta', best === null ? 'Not played yet' : 'Best: ' + best + ' moves'),
+      ...(DEMO ? [] : [el('span', 'deck-meta', best === null ? 'Not played yet' : 'Best: ' + best + ' moves')]),
     );
     btn.querySelector('.deck-icon').setAttribute('aria-hidden', 'true');
     btn.addEventListener('click', () => startGame(d));
@@ -390,14 +392,14 @@ function finish() {
   const stars = moves <= pairs * THREE_STARS_MAX ? 3 : moves <= pairs * TWO_STARS_MAX ? 2 : 1;
   const best = readBest(deck, size);
   const isBest = best === null || moves < best;
-  if (isBest) writeStore(bestKey(deck, size), moves);
+  if (isBest && !DEMO) writeStore(bestKey(deck, size), moves);
 
   $('win-summary').textContent = `You matched all ${pairs} pairs in ${deck.title} in ${moves} moves.`;
   const starsEl = $('win-stars');
   starsEl.replaceChildren(...[1, 2, 3].map(n => el('span', n <= stars ? '' : 'star-off', '★')));
   starsEl.setAttribute('aria-label', `${stars} out of 3 stars`);
   starsEl.setAttribute('role', 'img');
-  $('win-best').textContent = isBest ? 'New best score!' : `Your best: ${best} moves`;
+  $('win-best').textContent = DEMO ? '' : isBest ? 'New best score!' : `Your best: ${best} moves`;
 
   showScreen('win');
   Effects.win(soundOn);
