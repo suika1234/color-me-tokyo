@@ -1,0 +1,300 @@
+/* Spanish Memory Match. Builds on ../styles.css (colors, fonts, header, footer). */
+
+/* Fast taps (e.g. on the gaps between cards) must not trigger Safari's double-tap zoom. Pinch zoom still works. */
+html { touch-action: manipulation; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.game-main :focus-visible {
+  outline: 4px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+/* ---------- Header (compact, so the board fits on one screen) ---------- */
+.game-hero { padding: 26px 16px 24px; }
+.game-hero .wordmark { font-size: clamp(30px, 6vw, 44px); }
+.game-hero .home-hero-sub { font-size: 16px; margin-top: 12px; }
+body:not([data-screen="picker"]) .game-hero .home-hero-sub { display: none; }
+
+.game-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+}
+/* Room to scroll the header away on short screens. */
+body[data-screen="game"] .game-main { min-height: 100vh; }
+
+.screen-title { font-size: clamp(20px, 4vw, 26px); }
+
+/* ---------- Buttons ---------- */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 18px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--blue);
+  background: #fff;
+  border: 2px solid var(--blue);
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.pill-btn:hover { background: var(--blue); color: #fff; }
+.pill-btn-primary { background: var(--blue); color: #fff; }
+.pill-btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+.pill-btn-lemon { background: var(--yellow); border-color: var(--yellow); color: var(--blue-dark); }
+.pill-btn-lemon:hover { background: #ffb800; border-color: #ffb800; color: var(--blue-dark); }
+
+/* ---------- Deck picker ---------- */
+#picker .screen-title { text-align: center; margin-bottom: 18px; }
+.size-toggle { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: -6px 0 20px; }
+.size-btn[aria-pressed="true"] { background: var(--blue); color: #fff; }
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+}
+.deck-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 150px;
+  padding: 18px 12px;
+  font: inherit;
+  color: var(--body-text);
+  background: #fff;
+  border: 3px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.deck-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); border-color: var(--blue); }
+.deck-icon { font-size: 44px; line-height: 1.1; margin-bottom: 4px; }
+.deck-title { font-family: var(--font-head); font-weight: 700; font-size: 19px; color: var(--ink); line-height: 1.2; }
+.deck-meta { font-size: 14px; color: var(--muted); }
+
+/* ---------- Game bar ---------- */
+.game-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-bottom: 12px;
+}
+.game-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.game-stat {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--blue-dark);
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+/* ---------- Board ---------- */
+.board {
+  --gap: clamp(6px, 1.8vw, 12px);
+  --s: calc(4 / var(--cols, 4)); /* shrinks card contents on 5-column boards */
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), 1fr);
+  gap: var(--gap);
+  margin: 0 auto;
+  container-type: inline-size;
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 14px;
+  cursor: pointer;
+  perspective: 800px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.card[aria-disabled="true"] { cursor: default; }
+
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+.card.is-flipped .card-inner { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6%;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-back {
+  background-color: var(--blue);
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,0.13) 0 7%, transparent 8%),
+    radial-gradient(circle at 82% 80%, rgba(255,255,255,0.13) 0 9%, transparent 10%);
+  border: 3px solid var(--blue-dark);
+  box-shadow: 0 3px 0 var(--blue-dark);
+  transition: filter 0.15s ease;
+}
+.card:not(.is-flipped):hover .card-back { filter: brightness(1.1); }
+.lemon {
+  display: grid;
+  place-items: center;
+  width: calc(10cqw * var(--s));
+  aspect-ratio: 1;
+  font-size: calc(6cqw * var(--s));
+  line-height: 1;
+  background: var(--cream-2);
+  border-radius: 50%;
+}
+
+.card-front {
+  transform: rotateY(180deg);
+  background: #fff;
+  border: 3px solid var(--border);
+  box-shadow: 0 3px 0 var(--border);
+}
+.card-front.is-word { background: var(--cream-2); border-color: var(--yellow); box-shadow: 0 3px 0 #e8b52c; }
+
+.card.is-miss .card-front { border-color: #e2725b; box-shadow: 0 3px 0 #e2725b; }
+.card.is-matched .card-front {
+  border-color: #34a36a;
+  box-shadow: 0 3px 0 #34a36a, 0 0 0 4px rgba(52,163,106,0.2);
+  animation: matched-pop 0.4s ease 0.3s;
+}
+@keyframes matched-pop {
+  50% { transform: rotateY(180deg) scale(1.08); }
+}
+
+.card-emoji { font-size: calc(12cqw * var(--s)); line-height: 1; }
+.card-word {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--word-size, calc(5cqw * var(--s)));
+  line-height: 1.15;
+  color: var(--ink);
+  text-align: center;
+}
+.swatch {
+  width: calc(14cqw * var(--s));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--swatch);
+}
+.swatch-outlined { box-shadow: 0 0 0 2px var(--muted); }
+.numeral {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: calc(10cqw * var(--s));
+  line-height: 1;
+  color: var(--blue-dark);
+}
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(1cqw * var(--s));
+  max-width: calc(15cqw * var(--s));
+  margin-top: calc(1.4cqw * var(--s));
+}
+.numeral-long { font-size: calc(6.5cqw * var(--s)); }
+.dots-wide { max-width: calc(18cqw * var(--s)); }
+.dot { width: calc(2.8cqw * var(--s)); aspect-ratio: 1; border-radius: 50%; background: var(--blue); }
+
+.free-tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  font-size: calc(12cqw * var(--s));
+  background: var(--yellow);
+  border-radius: 14px;
+  box-shadow: 0 3px 0 #e8b52c;
+}
+
+/* ---------- Match note ---------- */
+.match-note {
+  min-height: 48px;
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 16px;
+  color: var(--body-text);
+}
+.match-note strong { font-family: var(--font-head); font-weight: 600; color: var(--blue-dark); font-size: 19px; }
+.match-note .card-number { color: var(--muted); white-space: nowrap; }
+
+/* ---------- Celebration ---------- */
+.win {
+  text-align: center;
+  background: #fff;
+  border: 3px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 20px;
+}
+.win .screen-title { font-size: clamp(30px, 6vw, 40px); outline: none; }
+.win-summary { font-size: 18px; margin: 10px 0 0; }
+.stars { font-size: 48px; letter-spacing: 8px; line-height: 1.2; margin: 14px 0 4px; color: var(--yellow); }
+.star-off { color: var(--border); }
+.win-best { color: var(--muted); margin: 0 0 22px; font-weight: 700; }
+.win-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.win-actions .pill-btn { min-height: 50px; font-size: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card-inner, .card-back, .deck-btn { transition: none; }
+  .card.is-matched .card-front { animation: none; }
+}
+
+/* ---------- Match celebrations (effects.js) ---------- */
+.fx-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: hidden;
+}
+.fx-layer > span { position: absolute; }
+.fx-ring { border: 4px solid var(--yellow); border-radius: 50%; }
+.fx-dot { width: 10px; height: 10px; border-radius: 50%; }
+.fx-star { font-size: 22px; line-height: 1; text-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+.fx-confetti { width: 10px; height: 14px; border-radius: 2px; }
+.fx-praise {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(30px, 8vw, 52px);
+  color: var(--yellow);
+  white-space: nowrap;
+  -webkit-text-stroke: 2px var(--blue-dark);
+  paint-order: stroke fill;
+  text-shadow: 0 4px 0 var(--blue-dark), 0 8px 18px rgba(0,0,0,0.25);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
