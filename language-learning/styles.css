@@ -272,16 +272,3 @@ a.book-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0
   a.book-card .book-cta { width: auto; text-align: center; }
 }
 
-/* Stand-in for a cover we don't have yet */
-.cover-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 48px;
-  line-height: 1;
-  background: var(--cream);
-  border: 2px solid var(--border);
-}
-.cover-placeholder span { font-family: var(--font-head); font-weight: 700; font-size: 18px; color: var(--blue-dark); }
