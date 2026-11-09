@@ -230,6 +230,8 @@ a.book-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0
 /* Portrait covers (e.g. French flash cards): same height, A4-ish width */
 .book-cover-portrait {
   width: 128px;
+  object-fit: contain; /* show the whole cover even when it isn't exactly A4-shaped */
+  background: #fff;
   margin: 0 26px;
 }
 @media (max-width: 560px) {
@@ -269,3 +271,17 @@ a.book-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0
   a.book-card .book-info-top { justify-content: center; }
   a.book-card .book-cta { width: auto; text-align: center; }
 }
+
+/* Stand-in for a cover we don't have yet */
+.cover-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 48px;
+  line-height: 1;
+  background: var(--cream);
+  border: 2px solid var(--border);
+}
+.cover-placeholder span { font-family: var(--font-head); font-weight: 700; font-size: 18px; color: var(--blue-dark); }
